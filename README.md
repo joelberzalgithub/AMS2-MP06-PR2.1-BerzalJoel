@@ -1,6 +1,8 @@
-# Exemple de SQLite #
+# Joel Berzal Álamo #
 
-En aquest projecte hi ha un exemple de SQLite a Java
+## PR2.1 Accés a Base de Dades ##
+
+En aquest projecte hi ha la primera pràctica de SQLite a Java
 
 ### Compilació i funcionament ###
 

@@ -47,9 +47,13 @@ public class Main {
                             mostrarPersonatges(conn, rs, 2);
                             mostrarPersonatges(conn, rs, 3);
 							break;
-                    case 3: mostrarPersonatgesOrdenats(conn, rs, "atac");
+                    case 3: mostrarPersonatgesOrdenats(conn, rs, 1, "atac");
+                            mostrarPersonatgesOrdenats(conn, rs, 2, "atac");
+                            mostrarPersonatgesOrdenats(conn, rs, 3, "atac");
 							break;
-                    case 4: mostrarPersonatgesOrdenats(conn, rs, "defensa");
+                    case 4: mostrarPersonatgesOrdenats(conn, rs, 1, "defensa");
+                            mostrarPersonatgesOrdenats(conn, rs, 2, "defensa");
+                            mostrarPersonatgesOrdenats(conn, rs, 3, "defensa");
 							break;
 					case 100: running = false;
 							break;
@@ -114,11 +118,21 @@ public class Main {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    static void mostrarPersonatgesOrdenats(Connection conn, ResultSet rs, String ordre) {
+    static void mostrarPersonatgesOrdenats(Connection conn, ResultSet rs, int idFaccio, String ordre) {
         try {
-            rs = UtilsSQLite.querySelect(conn, "SELECT * FROM personatge ORDER BY " + ordre + " DESC LIMIT 1;");
+            rs = UtilsSQLite.querySelect(conn, "SELECT * FROM personatge WHERE idFaccio = " + idFaccio + " ORDER BY " + ordre + " DESC LIMIT 1;");
+            if (ordre == "atac") {
+                if (idFaccio == 1) { System.out.println("\nMillor atacant de la faccio Cavallers:"); }
+                else if (idFaccio == 2) { System.out.println("\nMillor atacant de la faccio Vikings:"); }
+                else { System.out.println("\nMillor atacant de la faccio Samurais:"); }
+            }
+            else {
+                if (idFaccio == 1) { System.out.println("\nMillor defensor de la faccio Cavallers:"); }
+                else if (idFaccio == 2) { System.out.println("\nMillor defensor de la faccio Vikings:"); }
+                else { System.out.println("\nMillor defensor de la faccio Samurais:"); }
+            }
             while (rs.next()) {
-                System.out.println("\nId: " + rs.getInt("id")
+                System.out.println("Id: " + rs.getInt("id")
                                  + "; Nom: " + rs.getString("nom")
                                  + "; Atac: " + rs.getString("atac")
                                  + "; Defensa: " + rs.getString("defensa")
